@@ -5,7 +5,7 @@
 # ChangeLog (Who,When,What):
 # RRoot,1.1.2030,Created started script
 # RRoot,1.1.2030,Added pseudo-code to start assignment 8
-# RFear,12.5.2021,Modified code to complete assignment 8
+# RFear,12.6.2021,Modified code to complete assignment 8
 # ------------------------------------------------------------------------ #
 
 # Data -------------------------------------------------------------------- #
@@ -24,11 +24,11 @@ class Product:
         __float__: returns a float
     changelog: (Who,When,What)
         RRoot,1.1.2030,Created Class
-        RFear,12.5.2021,Modified code to complete assignment 8
+        RFear,12.6.2021,Modified code to complete assignment 8
     """
 
     # --Constructors--
-    def __init__(self, product_name, product_price):
+    def __init__(self, product_name: str, product_price: float):
         # --Attributes--
         self.product_name = product_name
         self.product_price = product_price
@@ -69,17 +69,22 @@ class FileProcessor:
     """Processes data to and from a file and a list of product objects:
 
     methods:
-        read_data_from_file(file_name, list_of_product_objects): -> (a list of product objects)
-
-        save_data_to_file(file_name, list_of_product_objects):
+        read_data(file_name, list_of_objects): file name and a list of product objects
+        save_data(file_name, list_of_objects): file name and a list of product objects
 
     changelog: (When,Who,What)
         RRoot,1.1.2030,Created Class
-        RFear,12.5.2021,Modified code to complete assignment 8
+        RFear,12.6.2021,Modified code to complete assignment 8
     """
 
     @staticmethod
     def read_data(fname, list_of_obj):
+        """ Read data from file_name into a list of product objects.
+
+        :param fname: (string) file name to read from
+        :param list_of_obj: (list) list of product objects
+        :return: nothing
+        """
         try:
             f = open(fname, 'r')
             for line in f:
@@ -98,10 +103,11 @@ class FileProcessor:
 
     @staticmethod
     def save_data(fname, list_of_obj):
-        """ Writes data from a list to a file
+        """ Writes data from a list of product objects to a file.
 
-        :param fname: (string) name of file to save data to:
-        :param list_of_obj: (list) list of data to write to file:
+        :param fname: (string) file name to save to
+        :param list_of_obj: (list) list of product objects
+        :return: nothing
         """
         f = open(fname, 'w')
         for row in list_of_obj:
@@ -114,11 +120,15 @@ class IO():
     """Description goes here:
 
     methods:
-        TO BE UPDATED
+        print_menu(): display a menu of choices to the user
+        input_menu_choice(): gets the menu choice from a user
+        input_yes_no_choice(message): gets a yes or no choice from the user
+        print_current_data(list_of_obj): shows the current product and price objects
+        add_data(list_of_obj): adds a new product and price to the list of objects
 
     changelog: (When,Who,What)
         RRoot,1.1.2030,Created Class
-        RFear,12.5.2021,Modified code to complete assignment 8
+        RFear,12.6.2021,Modified code to complete assignment 8
     """
 
     @staticmethod
@@ -154,7 +164,7 @@ class IO():
 
     @staticmethod
     def print_current_data(list_of_obj):
-        """ Shows the current Tasks in the list of dictionaries rows
+        """ Shows the current product and price objects
 
         :param list_of_obj: (list) of data you want to display
         :return: nothing
@@ -168,9 +178,13 @@ class IO():
             for row in list_of_obj:
                 print(row.product_name, " | ", row.product_price)
 
-    # TODO: Add code to get product data from user
     @staticmethod
     def add_data(list_of_obj):
+        """ Shows the current product and price objects
+
+        :param list_of_obj: (list) of data you want to display
+        :return: nothing
+        """
         product = ""
         price = ""
         ans = None
@@ -192,8 +206,6 @@ class IO():
         list_of_obj.append(row)
 
 
-# Presentation (Input/Output)  -------------------------------------------- #
-
 # Main Body of Script  ---------------------------------------------------- #
 # Load data from file into a list of product objects when script starts
 # Show user a menu of options
@@ -201,7 +213,6 @@ class IO():
 # Option 1: Show user current data in the list of product objects
 # Option 2: Let user add data to the list of product objects
 # Option 3: Let user save current data to file and exit program
-# Main Body of Script  ---------------------------------------------------- #
 
 # Make file object, open, and read data
 FileProcessor.read_data(file_name, lstProductObjects)
@@ -216,7 +227,7 @@ while True:
     elif choice == '2':  # add product and price
         IO.add_data(lstProductObjects)
 
-    elif choice == '3':  # save and exit
+    elif choice == '3':  # save, or not, and exit
         valid = ['y', 'n']
         while True:
             yn_choice = IO.input_yes_no_choice(f"Save data and to '{file_name}' and exit? [y/n]: ")
