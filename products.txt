@@ -1,0 +1,4 @@
+Engine,500.00
+Tires,200.00
+Chassis,100.00
+Wheel,75.00
