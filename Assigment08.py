@@ -43,8 +43,7 @@ class Product:
         if not str(name).isnumeric():
             self.__product_name = name
         else:
-            # raise Exception("Names cannot be numbers.")
-            raise TypeError("Names cannot be numbers.")
+            raise Exception("Names cannot be numbers.")
 
     @property
     def product_price(self):
