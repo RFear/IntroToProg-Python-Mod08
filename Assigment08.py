@@ -93,14 +93,13 @@ class Processor:
                 prod, price = str(prod.strip()), float(price.strip())
                 row = Product(prod, price)
                 list_of_obj.append(row)
+                print(f"Successfully read data from the file '{fname}'.")
+                f.close()
         except FileNotFoundError:
             print(f"There is no file with the name '{fname}'.  One will be created.")
             f = open(fname, "w")
             f.close()
             print(f"\nThe file '{file_name}' was created.")
-        else:
-            print(f"Successfully read data from the file '{fname}'.")
-            f.close()
 
     @staticmethod
     def save_data(fname, list_of_obj):
