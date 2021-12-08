@@ -30,8 +30,8 @@ class Product:
     # --Constructors--
     def __init__(self, product_name: str, product_price: float):
         # --Attributes--
-        self.product_name = product_name
-        self.product_price = product_price
+        self.__product_name = product_name
+        self.__product_price = product_price
 
     ## --Properties--
     @property
@@ -43,7 +43,8 @@ class Product:
         if str(name).isnumeric() == False:
             self.__product_name = name
         else:
-            raise Exception("Names cannot be numbers.")
+            #raise Exception("Names cannot be numbers.")
+            raise TypeError("Names cannot be numbers.")
 
     @property
     def product_price(self):
@@ -65,12 +66,13 @@ class Product:
 
 
 # Processing  ------------------------------------------------------------- #
-class FileProcessor:
+class Processor:
     """Processes data to and from a file and a list of product objects:
 
     methods:
         read_data(file_name, list_of_objects): file name and a list of product objects
         save_data(file_name, list_of_objects): file name and a list of product objects
+        add_data(list_of_obj): adds a new product and price to the list of objects
 
     changelog: (When,Who,What)
         RRoot,1.1.2030,Created Class
@@ -114,17 +116,42 @@ class FileProcessor:
             f.write(row.product_name + "," + row.product_price + "\n")
         f.close()
 
+    @staticmethod
+    def add_data(list_of_obj):
+        """ Shows the current product and price objects
+
+        :param list_of_obj: (list) of data you want to display
+        :return: nothing
+        """
+        product = ""
+        price = ""
+        ans = None
+
+        while ans != "y":
+            product = input("Enter a new product name: ")
+            ans = input(f"\nFor the product you entered: {product}\n"
+                        f"Are these results correct? [y/n] ")
+
+        while True:
+            try:
+                price = float(input("\nEnter the price for the new product: "))
+            except ValueError as e:
+                print("Please enter a number for the price.\n")
+            if type(price) == float:
+                break
+
+        row = Product(product, price)
+        list_of_obj.append(row)
 
 # Presentation (Input/Output)  -------------------------------------------- #
 class IO():
-    """Description goes here:
+    """ Performs Input and Output tasks
 
     methods:
         print_menu(): display a menu of choices to the user
         input_menu_choice(): gets the menu choice from a user
         input_yes_no_choice(message): gets a yes or no choice from the user
         print_current_data(list_of_obj): shows the current product and price objects
-        add_data(list_of_obj): adds a new product and price to the list of objects
 
     changelog: (When,Who,What)
         RRoot,1.1.2030,Created Class
@@ -178,44 +205,17 @@ class IO():
             for row in list_of_obj:
                 print(row.product_name, " | ", row.product_price)
 
-    @staticmethod
-    def add_data(list_of_obj):
-        """ Shows the current product and price objects
-
-        :param list_of_obj: (list) of data you want to display
-        :return: nothing
-        """
-        product = ""
-        price = ""
-        ans = None
-
-        while ans != "y":
-            product = input("Enter a new product name: ")
-            ans = input(f"\nFor the product you entered: {product}\n"
-                        f"Are these results correct? [y/n] ")
-
-        while True:
-            try:
-                price = float(input("\nEnter the price for the new product: "))
-            except ValueError as e:
-                print("Please enter a number for the price.\n")
-            if type(price) == float:
-                break
-
-        row = Product(product, price)
-        list_of_obj.append(row)
-
 
 # Main Body of Script  ---------------------------------------------------- #
 # Load data from file into a list of product objects when script starts
 # Show user a menu of options
-# Get user's menu option choice
+# Gets user's menu option choice
 # Option 1: Show user current data in the list of product objects
 # Option 2: Let user add data to the list of product objects
 # Option 3: Let user save current data to file and exit program
 
 # Make file object, open, and read data
-FileProcessor.read_data(file_name, lstProductObjects)
+Processor.read_data(file_name, lstProductObjects)
 
 while True:
     IO.print_menu()  # shows menu
@@ -225,7 +225,7 @@ while True:
         IO.print_current_data(lstProductObjects)
 
     elif choice == '2':  # add product and price
-        IO.add_data(lstProductObjects)
+        Processor.add_data(lstProductObjects)
 
     elif choice == '3':  # save, or not, and exit
         valid = ['y', 'n']
@@ -235,7 +235,7 @@ while True:
                 if yn_choice == "n":
                     print("Save cancelled. Exiting program.")
                 else:
-                    FileProcessor.save_data(file_name, lstProductObjects)
+                    Processor.save_data(file_name, lstProductObjects)
                     print("Data saved to file. Exiting program.")
                 break
         break
