@@ -177,9 +177,9 @@ class IO:
 
         :return: string
         """
-        choice = str(input("Which option would you like to perform? [1 to 3] - ")).strip()
+        ans = str(input("Which option would you like to perform? [1 to 3] - ")).strip()
         print()  # Add an extra line for looks
-        return choice
+        return ans
 
     @staticmethod
     def input_yes_no_choice(message):
