@@ -119,7 +119,7 @@ class Processor:
     def add_data(list_of_obj):
         """ Shows the current product and price objects
 
-        param list_of_obj: (list) of data you want to display
+        param list_of_obj: (list) of data you want to add to
         :return: nothing
         """
         product = ""
