@@ -214,7 +214,7 @@ class IO:
 # Option 2: Let user add data to the list of product objects
 # Option 3: Let user save current data to file and exit program
 
-# Make file object, open, and read data
+# Open and read data
 Processor.read_data(file_name, lstProductObjects)
 
 while True:
