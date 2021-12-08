@@ -2,5 +2,3 @@ Engine,500.00
 Wheels,400.00
 Suit,100.00
 Helmet,250.00
-
-
