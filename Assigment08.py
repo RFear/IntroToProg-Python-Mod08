@@ -4,7 +4,7 @@
 
 # ChangeLog (Who,When,What):
 # RRoot,1.1.2030,Created started script
-# RRoot,1.1.2030,Added pseudo-code to start assignment 8
+# RRoot,1.1.2030,Added pseudocode to start assignment 8
 # RFear,12.6.2021,Modified code to complete assignment 8
 # ------------------------------------------------------------------------ #
 
@@ -33,17 +33,17 @@ class Product:
         self.__product_name = product_name
         self.__product_price = product_price
 
-    ## --Properties--
+    # --Properties--
     @property
     def product_name(self):
         return str(self.__product_name).title()
 
     @product_name.setter
     def product_name(self, name):
-        if str(name).isnumeric() == False:
+        if not str(name).isnumeric():
             self.__product_name = name
         else:
-            #raise Exception("Names cannot be numbers.")
+            # raise Exception("Names cannot be numbers.")
             raise TypeError("Names cannot be numbers.")
 
     @property
@@ -57,7 +57,7 @@ class Product:
         else:
             raise Exception("Prices cannot be strings.")
 
-    ## --Methods--
+    # --Methods--
     def __str__(self):
         return self.product_name
 
@@ -120,7 +120,7 @@ class Processor:
     def add_data(list_of_obj):
         """ Shows the current product and price objects
 
-        :param list_of_obj: (list) of data you want to display
+        param list_of_obj: (list) of data you want to display
         :return: nothing
         """
         product = ""
@@ -135,7 +135,7 @@ class Processor:
         while True:
             try:
                 price = float(input("\nEnter the price for the new product: "))
-            except ValueError as e:
+            except ValueError:
                 print("Please enter a number for the price.\n")
             if type(price) == float:
                 break
@@ -143,8 +143,9 @@ class Processor:
         row = Product(product, price)
         list_of_obj.append(row)
 
+
 # Presentation (Input/Output)  -------------------------------------------- #
-class IO():
+class IO:
     """ Performs Input and Output tasks
 
     methods:
@@ -193,10 +194,10 @@ class IO():
     def print_current_data(list_of_obj):
         """ Shows the current product and price objects
 
-        :param list_of_obj: (list) of data you want to display
+        param list_of_obj: (list) of data you want to display
         :return: nothing
         """
-        if list_of_obj == []:
+        if not list_of_obj:
             print("There is no data in the file.")
         else:
             print("The current products and prices are: ")
